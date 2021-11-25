@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BizEthicModelStoreContainer" CdmEntityContainer="BizEthicEntities">
+    <EntitySetMapping Name="BizImpactDatas">
+      <EntityTypeMapping TypeName="BizEthicModel.BizImpactData">
+        <MappingFragment StoreEntitySet="BizImpactData">
+          <ScalarProperty Name="overall_score" ColumnName="overall_score" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="company_id" ColumnName="company_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
