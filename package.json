@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/grungebob/cleansumer-extension/issues"
   },
-  "homepage": "https://github.com/grungebob/cleansumer-extension#readme"
+  "homepage": "https://github.com/grungebob/cleansumer-extension#readme",
+  "dependencies": {
+    "create-react-app": "^4.0.3"
+  }
 }
