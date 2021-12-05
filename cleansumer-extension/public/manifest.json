@@ -6,7 +6,7 @@
   "background": {
     "service_worker": "./background.js"
     },
-  "permissions": [],
+  "permissions": [ "storage"],
   "author": "Robert Chung & Purnima Vijaya",
   "action": {
     "default_popup": "popup.html",
