@@ -1,10 +1,43 @@
 {
   "name": "cleansumer-extension",
-  "version": "1.0.0",
-  "description": "Browser extension aggregating measurements of corporate ethics.",
+  "version": "0.1.0",
+  "private": true,
   "main": "index.js",
+  "description": "Browser extension aggregating measurements of corporate ethics.",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.15.0",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "eslint": "^7.32.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2",
+    "create-react-app": "^4.0.3"
+  },
   "scripts": {
-    "test": "npm run test"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "repository": {
     "type": "git",
@@ -17,13 +50,9 @@
     "browser",
     "extension"
   ],
-  "author": "Robert Chung",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/grungebob/cleansumer-extension/issues"
   },
-  "homepage": "https://github.com/grungebob/cleansumer-extension#readme",
-  "dependencies": {
-    "create-react-app": "^4.0.3"
-  }
+  "homepage": "https://github.com/grungebob/cleansumer-extension#readme"
 }
