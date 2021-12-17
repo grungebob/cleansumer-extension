@@ -5,6 +5,7 @@ import { normalizeHost } from "../constants/normalizeHost";
 
 
 const runChecks = async () => {
+    console.log('running checks!');
     const host = window.location.host;
     const siteName = normalizeHost(host);
     const response = await bCorp(siteName);
