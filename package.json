@@ -1,29 +1,41 @@
 {
   "name": "cleansumer-extension",
   "version": "1.0.0",
-  "description": "Browser extension aggregating measurements of corporate ethics.",
+  "description": "Rotten Tomatoes for Company Ethics",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "test",
+    "build": "{src}/app/*.ts",
+    "start": "webpack --config webpack.config.js --watch",
+    "lint": "eslint --fix . --ext tx,tsx"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/grungebob/cleansumer-extension.git"
   },
   "keywords": [
+    "ethics",
     "corporate",
     "ethics",
-    "meta",
-    "browser",
-    "extension"
+    "shopping",
+    "holidays"
   ],
-  "author": "Robert Chung",
+  "author": "Robert Chung & Purnima Vijaya",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/grungebob/cleansumer-extension/issues"
   },
   "homepage": "https://github.com/grungebob/cleansumer-extension#readme",
   "dependencies": {
-    "create-react-app": "^4.0.3"
+    "axios": "^0.24.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.171",
+    "webpack-cli": "^4.9.1"
   }
 }

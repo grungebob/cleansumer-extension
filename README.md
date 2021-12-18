@@ -1,2 +1,0 @@
-# cleansumer-extension
-Initial Cleansumer 
