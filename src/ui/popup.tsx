@@ -1,16 +1,25 @@
 /* global chrome */
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
 
 
 const App = () => {
-  const getStorage = () => chrome.storage.sync.get((storage) => {
-    console.log(storage)
-  });
+    const [score, setScore] = useState(null);
+    const [host, setHost] = useState(null);
+
+    const getStorage = () => chrome.storage.sync.get((storage) => {
+        console.log(storage);
+        if (storage.score && storage.host) {
+            setScore(storage.score);
+            setHost(storage.host);
+        }
+    });
+    
 
   useEffect(() => {
-    // getStorage();
+      console.log('getting storage');
+    getStorage();
     // chrome.runtime.sendMessage({ insert message here });
   }, []);
 
@@ -20,11 +29,21 @@ const App = () => {
     getStorage();
   });
 
-
-
   return (
     <div>
-      result: 
+        {host ?
+            (
+            <div>
+                <div> scores: {score} </div>
+                <div> site: {host} </div>
+            </div>
+            )
+            : (
+            <div> 
+                No Ethics Scores Found for this site
+            </div>
+            )
+        }
     </div>
   );
 };
