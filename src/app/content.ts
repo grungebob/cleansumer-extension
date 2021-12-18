@@ -1,15 +1,29 @@
 /* global chrome */
 
-const checkUrl = (site) => window.location.href.indexOf(site) !== -1;
+const normalizeHost = (host: string) => {
+    if (host.indexOf('www.') !== -1 && host.indexOf('https://') !== -1) {
+      return host.slice(12).replace(/ /g, '');
+    }
+    if (host.indexOf('www.') !== -1) {
+      return host.slice(4).replace(/ /g, '');
+    }
+    return host.replace(/ /g, '');
+  };
 
-const runChecks = async () => {
-    console.log('run checks');
+const checkSite = async () => {
+    const host = window.location.host;
+    const normalized = normalizeHost(host);
+    console.log('host: ', normalized);
+    chrome.runtime.sendMessage({
+        host: normalized,
+      });
 };
 
-runChecks();
+checkSite();
 
 chrome.runtime.onMessage.addListener((request) => {
+    console.log('request: ', request.type);
     if (request.type === 'updatedTab'){
-        runChecks();
+        checkSite();
     }
 });

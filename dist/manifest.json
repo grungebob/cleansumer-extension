@@ -8,9 +8,9 @@
         "default_popup": "popup.html"
     },
     "icons": {
-        "16": "icon/temp.jpg",
-        "48": "icon/temp.jpg",
-        "128": "icon/temp.jpg"
+        "16": "icons/temp.jpg",
+        "48": "icons/temp.jpg",
+        "128": "icons/temp.jpg"
     },
     "default_locale": "en",
     "background": {
