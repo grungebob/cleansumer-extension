@@ -12,12 +12,6 @@
         "48": "icons/temp.png",
         "128": "icons/temp.png"
     },
-    "default_icon": {
-        "16": "icons/temp.png",
-        "32": "icons/temp.png",
-        "48": "icons/temp.png",
-        "128": "icons/temp.png"
-        },
     "default_locale": "en",
     "background": {
         "scripts": [
