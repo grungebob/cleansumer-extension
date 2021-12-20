@@ -34,13 +34,18 @@ const App = () => {
         {host ?
             (
             <div>
-                <div> scores: {bcorp} </div>
-                <div> site: {host} </div>
+                <div> Todo: [name here] </div>
+                <div> B Corp Score: {bcorp} </div>
+                <div> will erase: {host} </div>
             </div>
             )
             : (
             <div> 
-                No Ethics Scores Found for this site
+                No ethics ratings found for {host}.
+                <div>
+                Todo: Button "Browse our Directory"
+                Todo: Button "Submit a Rating"
+                </div>
             </div>
             )
         }
