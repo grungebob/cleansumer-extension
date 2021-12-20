@@ -5,13 +5,13 @@ import * as ReactDOM from 'react-dom';
 
 
 const App = () => {
-    const [score, setScore] = useState(null);
+    const [bCorpScore, setBCorpScore] = useState(null);
     const [host, setHost] = useState(null);
 
     const getStorage = () => chrome.storage.sync.get((storage) => {
         console.log(storage);
         if (storage.score && storage.host) {
-            setScore(storage.score);
+            setBCorpScore(storage.score);
             setHost(storage.host);
         }
     });
@@ -34,7 +34,7 @@ const App = () => {
         {host ?
             (
             <div>
-                <div> scores: {score} </div>
+                <div> scores: {bCorpScore} </div>
                 <div> site: {host} </div>
             </div>
             )
