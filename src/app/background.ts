@@ -1,4 +1,4 @@
-import { bcorp } from './constants/bcorp'
+import { bcorpOverall, bcorpProfile } from './constants/bcorp'
 
 chrome.storage.sync.set({
     host: '',
@@ -7,12 +7,14 @@ chrome.storage.sync.set({
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       if (request.host) {
-          const result = await bcorp(request.host);
-          console.log('background result: ', result);
-          if (result){
+          const overallScore = await bcorpOverall(request.host);
+          const profileLink = await bcorpProfile(request.host)
+          console.log('background result overallScore: ', overallScore);
+          if (overallScore){
               await chrome.storage.sync.set({
                   host: request.host,
-                  score: result,
+                  score: overallScore.data,
+                  link: profileLink?.data,
               })
           }
       }

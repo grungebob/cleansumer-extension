@@ -15,7 +15,7 @@ const checkSite = async () => {
     const normalized = normalizeHost(host);
     console.log('host: ', normalized);
     chrome.runtime.sendMessage({
-        host: normalized,
+        host: host,
       });
 };
 
