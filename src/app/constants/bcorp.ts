@@ -1,9 +1,19 @@
 import axios from 'axios';
 
-export const bcorp = async (host: string) => {
+export const bcorpOverall = async (host: string) => {
     try {
-        const res = await axios.get(`https://bizdataapi.azurewebsites.net/BizEthic/GetOverAllScore?website=${host}`);
-        console.log('res: ', res);
+        const res = await axios.get(`https://bizdataapi.azurewebsites.net/Biz/GetOverAllScore?website=${host}`);
+        console.log(' bcorpOverall res: ', res);
+        return res;
+    } catch (e) {
+        console.error('ERROR: ', e);
+    }
+}
+
+export const bcorpProfile = async (host: string) => {
+    try {
+        const res = await axios.get(`https://bizdataapi.azurewebsites.net/Biz/GetBcorpProfile?website=${host}`);
+        console.log(' bcorpProfile res: ', res);
         return res;
     } catch (e) {
         console.error('ERROR: ', e);
