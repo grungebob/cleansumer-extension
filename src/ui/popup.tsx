@@ -2,6 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import { Header } from './components/header';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from '@chakra-ui/react'
 
 
 const App = () => {
@@ -36,13 +48,40 @@ const App = () => {
 
   return (
     <div>
+      <Header />
         {host ?
             (
-            <div>
-                <div> scores: {score} </div>
-                <div> site: {host} </div>
-                <a href={bCorpProfileLink} target="_blank" rel="noreferrer">B Corp Profile</a>
-            </div>
+              
+              <TableContainer>
+                <Table variant='simple'>
+                  {/* <TableCaption>Cleansumer Scores:</TableCaption> */}
+                  <Thead>
+                    <Tr>
+                      <Th>B-Corp:</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>Scores:</Td>
+                      <Td> {score}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>
+                      <a href={bCorpProfileLink} target="_blank" rel="noreferrer">B Corp Profile</a>
+                      </Td>
+                    </Tr>
+                    <Tr>
+                      <Td>Site: </Td>
+                      <Td> {host}</Td>
+                    </Tr>
+                  </Tbody>
+                  <Tfoot>
+                    <Tr>
+                      <Th>Made By Purnima Vijaya & Robert Chung</Th>
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
             )
             : (
             <div> 
