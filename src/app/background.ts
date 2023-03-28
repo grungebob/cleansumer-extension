@@ -13,9 +13,29 @@ chrome.storage.sync.set({
           if (overallScore){
               await chrome.storage.sync.set({
                   host: request.host,
-                  score: overallScore.data,
+                  score: overallScore?.data,
                   link: profileLink?.data,
               })
           }
       }
+  });
+
+  // Right-Click Options:
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+      id: 'ConsoleStorage',
+      title: 'Console The Storage',
+      contexts: ['all'],
+    });
+  });
+
+  // Actions for Right-Click Options:
+chrome.contextMenus.onClicked.addListener((query) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+      if (query.menuItemId === 'ConsoleStorage') {
+        chrome.storage.sync.get(async (result) => {
+          console.log('storage: ', result);
+        });
+      }
+    });
   });
