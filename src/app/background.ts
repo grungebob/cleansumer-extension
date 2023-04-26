@@ -20,7 +20,7 @@ chrome.storage.sync.set({
       }
   });
 
-  // Right-Click Options:
+// Right-Click Options:
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
       id: 'ConsoleStorage',
