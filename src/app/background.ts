@@ -20,6 +20,7 @@ chrome.storage.sync.set({
       }
   });
 
+/*
 // Right-Click Options:
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
@@ -39,3 +40,4 @@ chrome.contextMenus.onClicked.addListener((query) => {
       }
     });
   });
+*/
