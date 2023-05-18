@@ -9,7 +9,7 @@ export const bcorpOverall = async (host: string, secondTime?: boolean) => {
     try {
         const res = await axios.get(`https://bizdataapi.azurewebsites.net/Biz/GetOverAllScore?website=${host}`);
         console.log('bcorpOverall res: ', res);
-        if(res?.data === '') {
+        if(res?.data === '' && !secondTime) {
             return bcorpOverall(changeHostPrefix(host), true);
         }
         return res;
@@ -25,7 +25,7 @@ export const bcorpProfile = async (host: string, secondTime?: boolean) => {
     try {
         const res = await axios.get(`https://bizdataapi.azurewebsites.net/Biz/GetBcorpProfile?website=${host}`);
         console.log('bcorpProfile res: ', res);
-        if(res?.data === '') {
+        if(res?.data === '' && !secondTime) {
             return bcorpProfile(changeHostPrefix(host), true);
         }
         return res;
