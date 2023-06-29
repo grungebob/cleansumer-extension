@@ -8,13 +8,13 @@ const changeHostPrefix = (host: string) => {
 export const bcorpOverall = async (host: string, secondTime?: boolean) => {
     try {
         const res = await axios.get(`https://bizdataapi.azurewebsites.net/Biz/GetOverAllScore?website=${host}`);
-        console.log('bcorpOverall res: ', res);
+        // console.log('bcorpOverall res: ', res);
         if(res?.data === '' && !secondTime) {
             return bcorpOverall(changeHostPrefix(host), true);
         }
         return res;
     } catch (e) {
-        console.error('bcorpOverall error: ', e);
+        // console.error('bcorpOverall error: ', e);
         if(!secondTime) {
             bcorpOverall(changeHostPrefix(host), true)
         }
@@ -24,13 +24,13 @@ export const bcorpOverall = async (host: string, secondTime?: boolean) => {
 export const bcorpProfile = async (host: string, secondTime?: boolean) => {
     try {
         const res = await axios.get(`https://bizdataapi.azurewebsites.net/Biz/GetBcorpProfile?website=${host}`);
-        console.log('bcorpProfile res: ', res);
+        // console.log('bcorpProfile res: ', res);
         if(res?.data === '' && !secondTime) {
             return bcorpProfile(changeHostPrefix(host), true);
         }
         return res;
     } catch (e) {
-        console.log('bcorpProfile error: ', e);
+        // console.log('bcorpProfile error: ', e);
         if(!secondTime) {
             bcorpProfile(changeHostPrefix(host), true)
         }

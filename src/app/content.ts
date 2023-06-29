@@ -13,7 +13,7 @@ const normalizeHost = (host: string) => {
 const checkSite = async () => {
     const host = window.location.host;
     const normalized = normalizeHost(host);
-    console.log('host: ', normalized);
+    // console.log('host: ', normalized);
     chrome.runtime.sendMessage({
         host: host,
       });
@@ -22,7 +22,7 @@ const checkSite = async () => {
 checkSite();
 
 chrome.runtime.onMessage.addListener((request) => {
-    console.log('request: ', request.type);
+    // console.log('request: ', request.type);
     if (request.type === 'updatedTab'){
         checkSite();
     }
