@@ -13,6 +13,8 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Divider,
+  Container,
 } from '@chakra-ui/react'
 
 
@@ -45,9 +47,9 @@ const App = () => {
   });
 
   return (
-    <div>
+    <Container padding='10px'>
       <Header />
-        {host ?
+        {score && score !== 'NaN' ?
             (
               
               <TableContainer>
@@ -55,24 +57,27 @@ const App = () => {
                   {/* <TableCaption>Cleansumer Scores:</TableCaption> */}
                   <Thead>
                     <Tr>
-                      <Th>B-Corp:</Th>
+                      <Td>{`Site: ${host}`}</Td>
+                    </Tr>
+                    <Divider />
+                    <Tr>
+                      <Th>B-Corp Company</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
                     <Tr>
-                      <Td>Scores:</Td>
-                      <Td> {score}</Td>
+                      <Td>{`Overall Score: ${score}`}</Td>
                     </Tr>
                     <Tr>
                       <Td>
-                      <a href={profile} target="_blank" rel="noreferrer">B Corp Profile</a>
+                      <a href={profile} target="_blank" rel="noreferrer"> Full B Corp Profile</a>
                       </Td>
                     </Tr>
-                    <Tr>
-                      <Td>Site: </Td>
-                      <Td> {host}</Td>
-                    </Tr>
+                    <Tr />
+                    <Tr />
+                    <Tr />
                   </Tbody>
+                  <Divider />
                   <Tfoot>
                     <Tr>
                       <Th>Made By Purnima Vijaya & Robert Chung</Th>
@@ -83,11 +88,11 @@ const App = () => {
             )
             : (
             <div> 
-                No Ethics Scores Found for this site
+                No B-Corp Score Found for this site
             </div>
             )
         }
-    </div>
+    </Container>
   );
 };
 
