@@ -2,6 +2,20 @@
 
 import React, { useState, useEffect } from 'react';
 import * as ReactDOM from 'react-dom';
+import { Header } from './components/header';
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Divider,
+  Container,
+} from '@chakra-ui/react'
 
 
 const App = () => {
@@ -33,22 +47,52 @@ const App = () => {
   });
 
   return (
-    <div>
-        {host ?
+    <Container padding='10px'>
+      <Header />
+        {score && score !== 'NaN' ?
             (
-            <div>
-                <div> scores: {score} </div>
-                <div> site: {host} </div>
-                <a href={profile} target="_blank" rel="noreferrer">B Corp Profile</a>
-            </div>
+              
+              <TableContainer>
+                <Table variant='simple'>
+                  {/* <TableCaption>Cleansumer Scores:</TableCaption> */}
+                  <Thead>
+                    <Tr>
+                      <Td>{`Site: ${host}`}</Td>
+                    </Tr>
+                    <Divider />
+                    <Tr>
+                      <Th>B-Corp Company</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    <Tr>
+                      <Td>{`Overall Score: ${score}`}</Td>
+                    </Tr>
+                    <Tr>
+                      <Td>
+                      <a href={profile} target="_blank" rel="noreferrer"> Full B Corp Profile</a>
+                      </Td>
+                    </Tr>
+                    <Tr />
+                    <Tr />
+                    <Tr />
+                  </Tbody>
+                  <Divider />
+                  <Tfoot>
+                    <Tr>
+                      <Th>Made By Purnima Vijaya & Robert Chung</Th>
+                    </Tr>
+                  </Tfoot>
+                </Table>
+              </TableContainer>
             )
             : (
             <div> 
-                No Ethics Scores Found for this site
+                No B-Corp Score Found for this site
             </div>
             )
         }
-    </div>
+    </Container>
   );
 };
 
