@@ -4,6 +4,49 @@ chrome.storage.sync.set({
     host: '',
     score: null,
   });
+  
+  /*
+    Native Chrome pages such as newTab and extension will receive an error due to no content script
+    returning from the sendMessage call. Therefore, we put this conditional to cover for this error.
+    */
+  // const tabReady = async (tabs, listenerTabID) => {
+  //   const [activeTab] = await chrome.tabs.query({
+  //     active: true,
+  //     currentWindow: true,
+  //   });
+  //   return activeTab.status === 'complete' && !activeTab.pendingUrl && !activeTab.url.startsWith('chrome://') && activeTab.id === listenerTabID;
+  // };
+  
+  // Sends a message to the current tab that the tab is updated and should run content script checks:
+  function updatedTab(tabId) {
+    try {
+      chrome.tabs.sendMessage(tabId, {
+        type: 'updatedTab',
+      });
+    } catch (e) {
+      console.log('updated tab error: ', e);
+    }
+  }
+  
+  // Fires when the active tab in a window changes:
+  chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    // const isTabReady = await tabReady(activeInfo, activeInfo.tabId);
+    // if (isTabReady) {
+      updatedTab(activeInfo.tabId);
+      return true;
+    // }
+    // return true;
+  });
+  
+  // Fires when a tab is updated:
+  chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    // const isTabReady = await tabReady(tab, tabId);
+  
+    // if (isTabReady) {
+      updatedTab(tabId);
+    // }
+    return true;
+  });
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       if (request.host) {
