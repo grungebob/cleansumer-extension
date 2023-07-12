@@ -56,10 +56,10 @@ const App = () => {
                 <Table variant='simple'>
                   {/* <TableCaption>Cleansumer Scores:</TableCaption> */}
                   <Thead>
-                    <Tr>
+                    {/* <Tr>
                       <Td>{`Site: ${host}`}</Td>
                     </Tr>
-                    <Divider />
+                    <Divider /> */}
                     <Tr>
                       <Th>B-Corp Company</Th>
                     </Tr>
@@ -80,7 +80,7 @@ const App = () => {
                   <Divider />
                   <Tfoot>
                     <Tr>
-                      <Th>Made By Purnima Vijaya & Robert Chung</Th>
+                      <Th><a href='https://www.linkedin.com/company/cleansumer' target='_blank'>Connect with us!</a></Th>
                     </Tr>
                   </Tfoot>
                 </Table>
