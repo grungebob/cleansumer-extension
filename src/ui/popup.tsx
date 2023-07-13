@@ -15,13 +15,19 @@ import {
   TableContainer,
   Divider,
   Container,
+  CircularProgress,
+  CircularProgressLabel
 } from '@chakra-ui/react'
+import { calculateBCorpPercentage } from '../utils/bcorpPercentage';
 
 
 const App = () => {
     const [score, setScore] = useState(null);
     const [host, setHost] = useState(null);
     const [profile, setProfile] = useState(null);
+    const [displayScore, setDisplayScore] = useState(0);
+
+    const bCorpPercentage = calculateBCorpPercentage(score);
 
 
     const getStorage = () => chrome.storage.sync.get((storage) => {
@@ -39,6 +45,12 @@ const App = () => {
     getStorage();
     // chrome.runtime.sendMessage({ insert message here });
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setDisplayScore(score);
+    }, 300);
+}, [score]);
 
   /* Listener for page change */
   chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -61,12 +73,15 @@ const App = () => {
                     </Tr>
                     <Divider /> */}
                     <Tr>
-                      <Th>B-Corp Company</Th>
+                      <Th>Certified B-Corp Company</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
                     <Tr>
-                      <Td>{`Overall Score: ${score}`}</Td>
+                      <Td fontSize='20px'>{`Overall Score:`}</Td>
+                      <CircularProgress min={0} max={200} value={displayScore} color='green' size='90px' thickness='12px'>
+                        <CircularProgressLabel paddingBottom='20px'>{score}</CircularProgressLabel>
+                      </CircularProgress>
                     </Tr>
                     <Tr>
                       <Td>
