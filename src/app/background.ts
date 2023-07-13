@@ -19,6 +19,7 @@ chrome.storage.sync.set({
   
   // Sends a message to the current tab that the tab is updated and should run content script checks:
   function updatedTab(tabId) {
+    console.log('updated tab: ', tabId);
     try {
       chrome.tabs.sendMessage(tabId, {
         type: 'updatedTab',
@@ -30,6 +31,7 @@ chrome.storage.sync.set({
   
   // Fires when the active tab in a window changes:
   chrome.tabs.onActivated.addListener(async (activeInfo) => {
+    console.log('on activated: ', activeInfo)
     // const isTabReady = await tabReady(activeInfo, activeInfo.tabId);
     // if (isTabReady) {
       updatedTab(activeInfo.tabId);
@@ -40,6 +42,7 @@ chrome.storage.sync.set({
   
   // Fires when a tab is updated:
   chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    console.log('onupdated tabId, changeInfo, tab ', tabId, changeInfo, tab);
     // const isTabReady = await tabReady(tab, tabId);
   
     // if (isTabReady) {
@@ -49,6 +52,7 @@ chrome.storage.sync.set({
   });
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+      console.log('listener on message: ', request);
       if (request.host) {
           const overallScore = await bcorpOverall(request.host);
           const overallScoreRounded = Number.parseFloat(overallScore?.data).toFixed(2);
