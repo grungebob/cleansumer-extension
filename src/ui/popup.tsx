@@ -16,7 +16,8 @@ import {
   Divider,
   Container,
   CircularProgress,
-  CircularProgressLabel
+  CircularProgressLabel,
+  Spinner
 } from '@chakra-ui/react'
 import BCorpLogo from '../assets/bCorpLogo'
 
@@ -25,6 +26,7 @@ const App = () => {
     const [host, setHost] = useState(null);
     const [profile, setProfile] = useState(null);
     const [displayScore, setDisplayScore] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const getStorage = () => chrome.storage.sync.get((storage) => {
@@ -33,6 +35,7 @@ const App = () => {
             setScore(storage.score);
             setHost(storage.host);
             setProfile(storage.link)
+            setIsLoading(storage.isLoading)
         }
     });
 
@@ -54,6 +57,17 @@ const App = () => {
     // console.log('request: ', request)
     getStorage();
   });
+
+  if (isLoading) {
+    return (
+      <Container padding='10px'>
+      <Header />
+        Looking up scores...
+        <Spinner />
+      </Container>
+
+    )
+  }
 
   return (
     <Container padding='10px'>

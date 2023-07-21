@@ -3,6 +3,7 @@ import { bcorpOverall, bcorpProfile } from './constants/bcorp'
 chrome.storage.sync.set({
     host: '',
     score: null,
+    loading: false,
   });
   
   /*
@@ -54,6 +55,9 @@ chrome.storage.sync.set({
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       console.log('listener on message: ', request);
       if (request.host) {
+            await chrome.storage.sync.set({
+              loading: true,
+          });
           const overallScore = await bcorpOverall(request.host);
           const overallScoreRounded = Number.parseFloat(overallScore?.data).toFixed(2);
           const profileLink = await bcorpProfile(request.host);
@@ -62,8 +66,13 @@ chrome.storage.sync.set({
                   host: request.host,
                   score: overallScoreRounded,
                   link: profileLink?.data,
+                  loading: false,
               })
           }
+          await chrome.storage.sync.set({
+            loading: false,
+        });
+          
       }
   });
 
