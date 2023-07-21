@@ -16,18 +16,17 @@ import {
   Divider,
   Container,
   CircularProgress,
-  CircularProgressLabel
+  CircularProgressLabel,
+  Spinner
 } from '@chakra-ui/react'
-import { calculateBCorpPercentage } from '../utils/bcorpPercentage';
-
+import BCorpLogo from '../assets/bCorpLogo'
 
 const App = () => {
     const [score, setScore] = useState(null);
     const [host, setHost] = useState(null);
     const [profile, setProfile] = useState(null);
     const [displayScore, setDisplayScore] = useState(0);
-
-    const bCorpPercentage = calculateBCorpPercentage(score);
+    const [isLoading, setIsLoading] = useState(false);
 
 
     const getStorage = () => chrome.storage.sync.get((storage) => {
@@ -36,6 +35,7 @@ const App = () => {
             setScore(storage.score);
             setHost(storage.host);
             setProfile(storage.link)
+            setIsLoading(storage.isLoading)
         }
     });
 
@@ -58,6 +58,17 @@ const App = () => {
     getStorage();
   });
 
+  if (isLoading) {
+    return (
+      <Container padding='10px'>
+      <Header />
+        Looking up scores...
+        <Spinner />
+      </Container>
+
+    )
+  }
+
   return (
     <Container padding='10px'>
       <Header />
@@ -65,26 +76,34 @@ const App = () => {
             (
               
               <TableContainer>
-                <Table variant='simple'>
+                <Table variant='simple' size='lg'>
                   {/* <TableCaption>Cleansumer Scores:</TableCaption> */}
                   <Thead>
                     {/* <Tr>
                       <Td>{`Site: ${host}`}</Td>
                     </Tr>
                     <Divider /> */}
-                    <Tr>
-                      <Th>Certified B-Corp Company</Th>
-                    </Tr>
                   </Thead>
                   <Tbody>
-                    <Tr>
-                      <Td fontSize='20px'>{`Overall Score:`}</Td>
-                      <CircularProgress min={0} max={200} value={displayScore} color='green' size='90px' thickness='12px'>
-                        <CircularProgressLabel paddingBottom='20px'>{score}</CircularProgressLabel>
-                      </CircularProgress>
+                    <Tr alignContent='center'>
+                    <Td/>
+                      <Td fontSize='15px'>{`BCorp Overall Score:`}</Td>
+                    <Td />
+                      </Tr>
+                    <Tr >
+                      <Td width="20px"> <BCorpLogo /> </Td>
+                      <Td alignItems='center' alignContent='center' textAlign='center'>
+                        <CircularProgress min={0} max={200} value={displayScore} color='green' size='100px' thickness='12px'>
+                          <CircularProgressLabel paddingBottom='20px'>
+                            <div fontSize='20px'>
+                            {score}
+                            </div>
+                            </CircularProgressLabel>
+                        </CircularProgress>
+                      </Td>
                     </Tr>
                     <Tr>
-                      <Td>
+                      <Td fontSize='15px'>
                       <a href={profile} target="_blank" rel="noreferrer"> Full B Corp Profile</a>
                       </Td>
                     </Tr>
@@ -95,7 +114,7 @@ const App = () => {
                   <Divider />
                   <Tfoot>
                     <Tr>
-                      <Th><a href='https://www.linkedin.com/company/cleansumer' target='_blank'>Connect with us!</a></Th>
+                      <Th fontSize='15px'><a href='https://www.linkedin.com/company/cleansumer' target='_blank'>Connect with us!</a></Th>
                     </Tr>
                   </Tfoot>
                 </Table>
