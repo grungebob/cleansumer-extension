@@ -1,7 +1,7 @@
 {
     "name": "Cleansumer",
     "version": "0.0.4",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "description": "Rotten Tomatoes for Company Ethics",
     "browser_action": {
         "default_title": "Cleansumer",
@@ -14,9 +14,7 @@
     },
     "default_locale": "en",
     "background": {
-        "scripts": [
-            "js/background.js"
-        ],
+        "service_worker": "js/background.js",
         "persistent": true
     },
     "permissions": [
