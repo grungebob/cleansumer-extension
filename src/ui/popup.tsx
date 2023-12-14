@@ -90,6 +90,10 @@ const App = () => {
                       <Td fontSize='15px'>{`BCorp Overall Score:`}</Td>
                     <Td />
                       </Tr>
+                    <Tr alignContent='center'>
+                      <Td/>
+                      <Td fontSize='15px'>{host}</Td>
+                    </Tr>
                     <Tr >
                       <Td width="20px"> <BCorpLogo /> </Td>
                       <Td alignItems='center' alignContent='center' textAlign='center'>
@@ -104,7 +108,7 @@ const App = () => {
                     </Tr>
                     <Tr>
                       <Td fontSize='15px'>
-                      <a href={profile} target="_blank" rel="noreferrer"> Full B Corp Profile</a>
+                      <a href={profile} target="_blank" rel="noreferrer">Full B Corp Profile</a>
                       </Td>
                     </Tr>
                     <Tr />
@@ -122,7 +126,7 @@ const App = () => {
             )
             : (
             <div> 
-                No B-Corp Score Found for this site
+                {`No B-Corp Score Found for this site: ${host}`}
             </div>
             )
         }
