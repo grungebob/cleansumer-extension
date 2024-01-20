@@ -1,3 +1,6 @@
+/* global chrome */
+
+console.log('thest');
 import { bcorpOverall, bcorpProfile } from './constants/bcorp'
 
 chrome.storage.sync.set({
@@ -10,13 +13,14 @@ chrome.storage.sync.set({
     Native Chrome pages such as newTab and extension will receive an error due to no content script
     returning from the sendMessage call. Therefore, we put this conditional to cover for this error.
     */
-  // const tabReady = async (tabs, listenerTabID) => {
-  //   const [activeTab] = await chrome.tabs.query({
-  //     active: true,
-  //     currentWindow: true,
-  //   });
-  //   return activeTab.status === 'complete' && !activeTab.pendingUrl && !activeTab.url.startsWith('chrome://') && activeTab.id === listenerTabID;
-  // };
+
+  const tabReady = async (tabs, listenerTabID) => {
+    const [activeTab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    return activeTab.status === 'complete' && !activeTab.pendingUrl && !activeTab.url.startsWith('chrome://') && activeTab.id === listenerTabID;
+  };
   
   // Sends a message to the current tab that the tab is updated and should run content script checks:
   function updatedTab(tabId) {
@@ -40,7 +44,7 @@ chrome.storage.sync.set({
     // }
     // return true;
   });
-  
+
   // Fires when a tab is updated:
   chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     console.log('onupdated tabId, changeInfo, tab ', tabId, changeInfo, tab);
@@ -58,14 +62,18 @@ chrome.storage.sync.set({
             await chrome.storage.sync.set({
               loading: true,
           });
+          console.log('request.host: ', request.host);
           const overallScore = await bcorpOverall(request.host);
-          const overallScoreRounded = Number.parseFloat(overallScore?.data).toFixed(2);
+          console.log('overall score: ', overallScore);
+          const overallScoreRounded = Number.parseFloat(overallScore).toFixed(2);
           const profileLink = await bcorpProfile(request.host);
+          console.log('profile link? : ', profileLink);
           if (overallScore){
+            console.log('should update; ', overallScoreRounded, profileLink)
               await chrome.storage.sync.set({
                   host: request.host,
                   score: overallScoreRounded,
-                  link: profileLink?.data,
+                  link: profileLink,
                   loading: false,
               })
           }

@@ -1,9 +1,9 @@
 {
-    "name": "Cleansumer",
-    "version": "0.0.1",
-    "manifest_version": 2,
+    "name": "Cleansumer Demo",
+    "version": "0.0.6",
+    "manifest_version": 3,
     "description": "Rotten Tomatoes for Company Ethics",
-    "browser_action": {
+    "action": {
         "default_title": "Cleansumer",
         "default_popup": "popup.html"
     },
@@ -14,20 +14,25 @@
     },
     "default_locale": "en",
     "background": {
-        "scripts": [
-            "js/background.js"
-        ],
-        "persistent": true
+        "service_worker": "js/background.js",
+        "type": "module"
     },
     "permissions": [
-        "https://*/*",
         "activeTab",
         "webRequest",
         "storage",
         "contextMenus",
         "tabs"
     ],
-    "content_security_policy": "script-src 'self' https://bizdataapi.azurewebsites.net; object-src 'self'",
+    "host_permissions": [
+        "https://*/*",
+        "https://bizdataapi.azurewebsites.net/*"
+    ],
+    "content_security_policy": 
+    {
+      "script-src": "self",
+      "object-src": "self"
+    },
     "content_scripts": [
         {
             "matches": [
