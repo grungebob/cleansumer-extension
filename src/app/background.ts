@@ -1,7 +1,55 @@
 /* global chrome */
 
-console.log('thest');
-import { bcorpOverall, bcorpProfile } from './constants/bcorp'
+const changeHostPrefix = (host: string) => {
+  if (host.slice(0, 4) === 'www.') return host.slice(4);
+  return `www.${host}`;
+}
+
+const bcorpOverall = async (host: string, secondTime?: boolean) => {
+  try {
+      const res = await fetch(`https://bizdataapi.azurewebsites.net/Biz/GetOverAllScore?website=${host}`,
+      {
+        method: 'GET'
+      });
+      // console.log('bcorpOverall response: ', response);
+      if(!res && !secondTime) {
+          // debugger;
+          console.log('running bcorp overall second time')
+          return bcorpOverall(changeHostPrefix(host), true);
+      }
+      return res;
+  } catch (e) {
+      console.error('bcorpOverall error: ', e);
+      if(!secondTime) {
+          console.log('RUNNING IT AGAIN BECAUSE OF ERROR')
+          bcorpOverall(changeHostPrefix(host), true)
+      }
+  }
+}
+
+const bcorpProfile = async (host: string, secondTime?: boolean) => {
+  try {
+      const res = await fetch (`https://bizdataapi.azurewebsites.net/Biz/GetBcorpProfile?website=${host}`,
+      {
+        method: 'GET'
+      }
+        );
+      console.log('bcorp profile res: ', res);
+      const response = await res?.text();
+      console.log('bcorpProfile response: ', response);
+      if(!response && !secondTime) {
+          // debugger;
+          console.log('bcorpProfile RUN IT AGAIN');
+          return bcorpProfile(changeHostPrefix(host), true);
+      }
+      return response;
+  } catch (e) {
+      console.log('bcorpProfile error: ', e);
+      if(!secondTime) {
+          bcorpProfile(changeHostPrefix(host), true)
+      }
+  }
+}
 
 chrome.storage.sync.set({
     host: '',
@@ -57,26 +105,30 @@ chrome.storage.sync.set({
   });
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-      console.log('listener on message: ', request);
+      // console.log('listener on message: ', request);
       if (request.host) {
             await chrome.storage.sync.set({
               loading: true,
           });
-          console.log('request.host: ', request.host);
+          // console.log('request.host: ', request.host);
           const overallScore = await bcorpOverall(request.host);
-          console.log('overall score: ', overallScore);
-          const overallScoreRounded = Number.parseFloat(overallScore).toFixed(2);
-          const profileLink = await bcorpProfile(request.host);
-          console.log('profile link? : ', profileLink);
-          if (overallScore){
-            console.log('should update; ', overallScoreRounded, profileLink)
+          const overallScoreJson = await overallScore.json();
+          const overallScoreRounded = Number.parseFloat(overallScoreJson).toFixed(2);
+          if (overallScoreRounded){
               await chrome.storage.sync.set({
                   host: request.host,
                   score: overallScoreRounded,
-                  link: profileLink,
+                  link: null,
                   loading: false,
               })
           }
+          const profileLink = await bcorpProfile(request.host);
+          // console.log('profile link? : ', profileLink);
+          if (overallScore && profileLink){
+            await chrome.storage.sync.set({
+                link: profileLink,
+            })
+        }
           await chrome.storage.sync.set({
             loading: false,
         });
