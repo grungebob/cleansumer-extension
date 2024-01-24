@@ -26,5 +26,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     console.log('request: ', request, sender, sendResponse);
     if (request.type === 'updatedTab'){
         checkSite();
+        return true;
     }
 });
